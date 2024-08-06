@@ -138,3 +138,5 @@ Email:admin@foxupay.com
 可提供通道对接服务，具体请联系 
 Email:admin@foxupay.com
 电报：@foxupay
+tele群：https://t.me/+Ry8pEQ1RIKczNjkx 
+官网及演示：https://e.foxupay.com
