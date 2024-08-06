@@ -1,8 +1,11 @@
 ## 平台简介
 
 FOXUPAY 能量租用平台 是一款开源的能量租用平台，基于区块链技术，采用区块链技术实现能量租赁，降低代币转账成本。
+
 **一、部署说明**
+
 如不需定制功能，可直接使用本目录代码部署，不需要再次编译源代码。
+
 **二、部署教程**
 
 本教程基于 1Panel 面板进行说明，其他方式可自行部署。
@@ -118,7 +121,9 @@ token:
 
 需自行修改 e.daguoli.cn 为 你的域名
 可提供软件部署服务，具体请联系 Email:admin@foxupay.com
+
 **三、添加通道**
+
 通道实现类位于：energy-lease/src/main/java/com/fox/energy/lease/channel/service 目录下
 只需要创建 通道类 并实现 ChannelService ，设置唯一的 通道代码
 
