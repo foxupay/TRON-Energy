@@ -120,7 +120,9 @@ token:
     脚本内容：/opt/1panel/apps/openresty/openresty/www/sites/e.daguoli.cn/jar/splitLog.sh
 
 需自行修改 e.daguoli.cn 为 你的域名
-可提供软件部署服务，具体请联系 Email:admin@foxupay.com
+可提供软件部署服务，具体请联系 
+Email:admin@foxupay.com 
+电报：@foxupay
 
 **三、添加通道**
 
@@ -133,4 +135,6 @@ token:
 3. pay()        通道下单，需要实现具体的下单逻辑并返回 上游订单号 及 代理hash (如果同步返回的话)
 4. query()      通道订单查询，通过上游订单号查询订单状态，并按要求设置订单数据
 
-可提供通道对接服务，具体请联系 Email:admin@foxupay.com
+可提供通道对接服务，具体请联系 
+Email:admin@foxupay.com
+电报：@foxupay
