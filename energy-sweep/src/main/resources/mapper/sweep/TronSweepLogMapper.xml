@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fox.energy.sweep.mapper.TronSweepLogMapper">
+
+    <resultMap type="TronSweepLog" id="TronSweepLogResult">
+        <result property="id" column="id"/>
+        <result property="sweepNo" column="sweep_no"/>
+        <result property="sweepId" column="sweep_id"/>
+        <result property="address" column="address"/>
+        <result property="type" column="type"/>
+        <result property="balance" column="balance"/>
+        <result property="amount" column="amount"/>
+        <result property="status" column="status"/>
+        <result property="message" column="message"/>
+        <result property="hash" column="hash"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectTronSweepLogVo">
+        select id,
+               sweep_no,
+               sweep_id,
+               address,
+               type,
+               balance,
+               amount,
+               status,
+               message,
+               hash,
+               create_time,
+               update_time
+        from tron_sweep_log
+    </sql>
+
+    <select id="selectList" parameterType="TronSweepLog" resultMap="TronSweepLogResult">
+        <include refid="selectTronSweepLogVo"/>
+        <where>
+            <if test="sweepNo != null  and sweepNo != ''">and sweep_no =
+                #{sweepNo}
+            </if>
+            <if test="sweepId != null  and sweepId != ''">and sweep_id =
+                #{sweepId}
+            </if>
+            <if test="address != null  and address != ''">and address =
+                #{address}
+            </if>
+            <if test="type != null ">and type =
+                #{type}
+            </if>
+            <if test="balance != null ">and balance =
+                #{balance}
+            </if>
+            <if test="amount != null ">and amount =
+                #{amount}
+            </if>
+            <if test="status != null ">and status =
+                #{status}
+            </if>
+            <if test="message != null  and message != ''">and message =
+                #{message}
+            </if>
+            <if test="hash != null  and hash != ''">and hash =
+                #{hash}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="Long" resultMap="TronSweepLogResult">
+        <include refid="selectTronSweepLogVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectBySweepId" parameterType="String" resultMap="TronSweepLogResult">
+        <include refid="selectTronSweepLogVo"/>
+        where sweep_id = #{sweepId}
+    </select>
+
+    <insert id="insert" parameterType="TronSweepLog" useGeneratedKeys="true" keyProperty="id">
+        insert into tron_sweep_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sweepNo != null">sweep_no,</if>
+            <if test="sweepId != null">sweep_id,</if>
+            <if test="address != null">address,</if>
+            <if test="type != null">type,</if>
+            <if test="balance != null">balance,</if>
+            <if test="amount != null">amount,</if>
+            <if test="status != null">status,</if>
+            <if test="message != null">message,</if>
+            <if test="hash != null">hash,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sweepNo != null">#{sweepNo},</if>
+            <if test="sweepId != null">#{sweepId},</if>
+            <if test="address != null">#{address},</if>
+            <if test="type != null">#{type},</if>
+            <if test="balance != null">#{balance},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="status != null">#{status},</if>
+            <if test="message != null">#{message},</if>
+            <if test="hash != null">#{hash},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO tron_sweep_log (`sweep_no`, `sweep_id`,`address`, `type`, `balance`, `status`,
+        `message`, create_time, update_time)
+        VALUES
+        <foreach collection="list" index="" item="item" separator=",">
+            (#{item.sweepNo},
+            #{item.sweepId},
+            #{item.address},
+            #{item.type},
+            #{item.balance},
+            #{item.status},
+            #{item.message},
+            #{item.createTime},#{item.updateTime}
+            )
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="TronSweepLog">
+        update tron_sweep_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sweepNo != null">sweep_no = #{sweepNo},</if>
+            <if test="sweepId != null">sweep_id = #{sweepId},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="balance != null">balance = #{balance},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="message != null">message = #{message},</if>
+            <if test="hash != null">hash = #{hash},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from tron_sweep_log
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="String">
+        delete from tron_sweep_log where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

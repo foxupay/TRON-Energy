@@ -1,0 +1,95 @@
+package ${packageName}.service.impl;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import cn.hutool.core.date.DateUtil;
+
+    #if($table.sub)
+    import java.util.ArrayList;
+
+    import org.springframework.transaction.annotation.Transactional;
+    import ${packageName}.domain.${subClassName};
+    #end
+import ${packageName}.mapper.${ClassName}Mapper;
+import ${packageName}.domain.${ClassName};
+import ${packageName}.service.I${ClassName}Service;
+
+/**
+ * ${functionName}Service业务层处理
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Service
+public class ${ClassName}ServiceImpl implements I${ClassName}Service {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+    @Resource
+    private ${ClassName}Mapper ${className}Mapper;
+
+    @Override
+    public ${ClassName} selectBy${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField}) {
+        return ${className}Mapper.selectBy${pkColumn.capJavaField}(${pkColumn.javaField});
+    }
+
+    @Override
+    public List<${ClassName}> selectList(${ClassName} ${className}) {
+        return ${className}Mapper.selectList(${className});
+    }
+
+    @Override
+    public int insert(${ClassName} ${className}) {
+        #foreach ($column in $columns)
+            #if($column.javaField == 'createTime')
+                ${className}.setCreateTime(DateUtil.now());
+            #end
+            #if($column.javaField == 'updateTime')
+                ${className}.setUpdateTime(DateUtil.now());
+            #end
+        #end
+        #if($table.sub)
+            int rows = ${className}Mapper.insert(${className});
+            insert(${className});
+            return rows;
+        #else
+            return ${className}Mapper.insert(${className});
+        #end
+    }
+
+    @Override
+    public int update(${ClassName} ${className}) {
+        #foreach ($column in $columns)
+            #if($column.javaField == 'updateTime')
+                ${className}.setUpdateTime(DateUtil.now());
+            #end
+        #end
+        #if($table.sub)
+                ${className}Mapper.deleteBy${subTableFkClassName}(${className}.get${pkColumn.capJavaField}())
+            ;
+            insert(${className});
+        #end
+        return ${className}Mapper.update(${className});
+    }
+
+    @Override
+    public int deleteBy${pkColumn.capJavaField}s(${pkColumn.javaType}[] ${pkColumn.javaField}s) {
+        #if($table.sub)
+                ${className}Mapper.deleteBy${subTableFkClassName}s(${pkColumn.javaField}s);
+        #end
+        return ${className}Mapper.deleteBy${pkColumn.capJavaField}s(${pkColumn.javaField}s);
+    }
+
+    @Override
+    public int deleteBy${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField}) {
+        #if($table.sub)
+                ${className}Mapper.deleteBy${subTableFkClassName}(${pkColumn.javaField});
+        #end
+        return ${className}Mapper.deleteBy${pkColumn.capJavaField}(${pkColumn.javaField});
+    }
+
+}

@@ -1,0 +1,86 @@
+{
+  "id": "1878034",
+  "name": "khbIM",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "9694658",
+      "name": "设置",
+      "font_class": "shezhi2",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "2472143",
+      "name": "缩小",
+      "font_class": "suoxiao",
+      "unicode": "e659",
+      "unicode_decimal": 58969
+    },
+    {
+      "icon_id": "689052",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "1214775",
+      "name": "图片",
+      "font_class": "tupian",
+      "unicode": "e73f",
+      "unicode_decimal": 59199
+    },
+    {
+      "icon_id": "6525525",
+      "name": "头像",
+      "font_class": "touxiang",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "6528915",
+      "name": "放大",
+      "font_class": "fangda",
+      "unicode": "e676",
+      "unicode_decimal": 58998
+    },
+    {
+      "icon_id": "7833968",
+      "name": "头像",
+      "font_class": "touxiang1",
+      "unicode": "e7bb",
+      "unicode_decimal": 59323
+    },
+    {
+      "icon_id": "7897681",
+      "name": "加号",
+      "font_class": "jiahao",
+      "unicode": "e6ea",
+      "unicode_decimal": 59114
+    },
+    {
+      "icon_id": "10878919",
+      "name": "删除筛选项",
+      "font_class": "delete",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "12712505",
+      "name": "聊天",
+      "font_class": "liaotian",
+      "unicode": "e7d1",
+      "unicode_decimal": 59345
+    },
+    {
+      "icon_id": "13898144",
+      "name": "表情",
+      "font_class": "biaoqing",
+      "unicode": "e799",
+      "unicode_decimal": 59289
+    }
+  ]
+}

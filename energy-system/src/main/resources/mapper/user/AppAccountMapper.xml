@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fox.energy.user.mapper.AppAccountMapper">
+
+    <resultMap type="AppAccount" id="AppAccountResult">
+        <result property="id" column="id"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="sign" column="sign"/>
+        <result property="inviteId" column="invite_id"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectAppAccountVo">
+        select id,
+               nick_name,
+               phone,
+               email,
+               sign,
+               invite_id,
+               status,
+               create_time,
+               update_time
+        from app_account
+    </sql>
+
+    <select id="selectList" parameterType="AppAccount" resultMap="AppAccountResult">
+        <include refid="selectAppAccountVo"/>
+        <where>
+            <if test="nickName != null  and nickName != ''">and nick_name
+                like concat('%', #{nickName}, '%')
+            </if>
+            <if test="phone != null  and phone != ''">and phone =
+                #{phone}
+            </if>
+            <if test="email != null  and email != ''">and email
+                like concat('%', #{email}, '%')
+            </if>
+            <if test="sign != null  and sign != ''">and sign =
+                #{sign}
+            </if>
+            <if test="inviteId != null ">and invite_id =
+                #{inviteId}
+            </if>
+            <if test="status != null ">and status =
+                #{status}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="Integer" resultMap="AppAccountResult">
+        <include refid="selectAppAccountVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectByEmail" parameterType="String" resultMap="AppAccountResult">
+        <include refid="selectAppAccountVo"/>
+        where email = #{email}
+    </select>
+
+    <insert id="insert" parameterType="AppAccount" useGeneratedKeys="true" keyProperty="id">
+        insert into app_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="nickName != null">nick_name,</if>
+            <if test="phone != null">phone,</if>
+            <if test="email != null">email,</if>
+            <if test="sign != null">sign,</if>
+            <if test="inviteId != null">invite_id,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="nickName != null">#{nickName},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="email != null">#{email},</if>
+            <if test="sign != null">#{sign},</if>
+            <if test="inviteId != null">#{inviteId},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="AppAccount">
+        update app_account
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="nickName != null">nick_name = #{nickName},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="sign != null">sign = #{sign},</if>
+            <if test="inviteId != null">invite_id = #{inviteId},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from app_account
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="String">
+        delete from app_account where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="resetPwd" >
+        update app_account
+        set sign = #{password}
+        where id = #{id}
+    </update>
+</mapper>

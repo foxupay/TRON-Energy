@@ -1,0 +1,90 @@
+
+1.
+用 vue 开发的 web 程序，在 Chorm 上运行好好的，可是一到IE上面，就出现了兼容性问题，在网上一番查找之后，发现是 IE9,10,11 不兼容axios 的回调方法。
+
+解决办法：
+
+在命令行 
+npm install es6-promise --save-dev
+
+安装好后
+import promise from 'es6-promise';
+promise.polyfill();
+
+
+
+
+
+
+
+2.axios   URLSearchParams”未定义" 只能请求数据不能上传数据
+ 
+用 qs 替换 URLSearchParams
+
+安装qs：  npm install qs --save-dev
+
+引入qs:   import qs from 'qs'
+
+使用qs：  				var params = qs.stringify({
+		  					name:'123',
+		  					phone:'456',
+		  					type:'agent',
+		  		    })
+
+
+注意：麻烦的是用到qs的页面都得引入  import qs from 'qs' 否则找不到qs，如果用到vuex的话vuex 页面要引入
+
+
+3.打包后图片不显示
+
+config文件下index.js中的
+
+  build: {
+
+    assetsPublicPath: '/',  //将   '/’改为 './’
+
+
+4.不显示背景图片
+
+修改build 文件下的 utils.js 下的
+
+
+    if (options.extract) {
+      return ExtractTextPlugin.extract({
+        use: loaders,
+        fallback: 'vue-style-loader',
+        publicPath:'../../'          //添加   publicPath:'../../'  
+      })
+    } else {
+      return ['vue-style-loader'].concat(loaders)
+    }
+  }
+
+
+1/移动端复制粘贴
+vue-clipboards
+
+vue 生成二维码
+
+npm install --save qrcode
+
+
+
+		if(this.$route.query.payStatus=="0" && this.$route.query.joinStatus=="1"){
+			this.show=true
+			
+		}
+		if(this.$route.query.payStatus=="2" && this.$route.query.joinStatus=="1"){
+			this.show=false
+		}
+		
+		
+		console.log(this.show)
+
+
+
+
+
+
+
+

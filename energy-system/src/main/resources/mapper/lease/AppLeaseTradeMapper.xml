@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fox.energy.lease.mapper.AppLeaseTradeMapper">
+
+    <resultMap type="AppLeaseTrade" id="AppLeaseTradeResult">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="channel" column="channel"/>
+        <result property="orderNo" column="order_no"/>
+        <result property="receiveAddress" column="receive_address"/>
+        <result property="leaseType" column="lease_type"/>
+        <result property="resourceValue" column="resource_value"/>
+        <result property="leaseDurationType" column="lease_duration_type"/>
+        <result property="leaseDuration" column="lease_duration"/>
+        <result property="priceInSun" column="price_in_sun"/>
+        <result property="payTrx" column="pay_trx"/>
+        <result property="payUsdt" column="pay_usdt"/>
+        <result property="payAddress" column="pay_address"/>
+        <result property="payHash" column="pay_hash"/>
+        <result property="payTime" column="pay_time"/>
+        <result property="payWay" column="pay_way"/>
+        <result property="payStatus" column="pay_status"/>
+        <result property="leaseNo" column="lease_no"/>
+        <result property="leaseTime" column="lease_time"/>
+        <result property="leaseStatus" column="lease_status"/>
+        <result property="expireTime" column="expire_time"/>
+        <result property="frozenTxId" column="frozen_tx_id"/>
+        <result property="unfreezeTxId" column="unfreeze_tx_id"/>
+        <result property="message" column="message"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <sql id="selectAppLeaseTradeVo">
+        select id,
+               user_id,
+               channel,
+               order_no,
+               receive_address,
+               lease_type,
+               resource_value,
+               lease_duration_type,
+               lease_duration,
+               price_in_sun,
+               pay_trx,
+               pay_usdt,
+               pay_address,
+               pay_hash,
+               pay_time,
+               pay_way,
+               pay_status,
+               lease_no,
+               lease_time,
+               lease_status,
+               expire_time,
+               frozen_tx_id,
+               unfreeze_tx_id,
+               message,
+               create_time,
+               update_time
+        from app_lease_trade
+    </sql>
+
+    <select id="selectList" parameterType="AppLeaseTrade" resultMap="AppLeaseTradeResult">
+        <include refid="selectAppLeaseTradeVo"/>
+        <where>
+            <if test="userId != null  and userId != ''">and user_id =
+                #{userId}
+            </if>
+            <if test="orderNo != null  and orderNo != ''">and order_no =
+                #{orderNo}
+            </if>
+            <if test="channel != null  and channel != ''">and channel =
+                #{channel}
+            </if>
+            <if test="receiveAddress != null  and receiveAddress != ''">and receive_address =
+                #{receiveAddress}
+            </if>
+            <if test="leaseType != null ">and lease_type =
+                #{leaseType}
+            </if>
+            <if test="resourceValue != null ">and resource_value =
+                #{resourceValue}
+            </if>
+            <if test="leaseDurationType != null ">and lease_duration_type =
+                #{leaseDurationType}
+            </if>
+            <if test="leaseDuration != null ">and lease_duration =
+                #{leaseDuration}
+            </if>
+            <if test="priceInSun != null ">and price_in_sun =
+                #{priceInSun}
+            </if>
+            <if test="payTrx != null ">and pay_trx =
+                #{payTrx}
+            </if>
+            <if test="payUsdt != null ">and pay_usdt =
+                #{payUsdt}
+            </if>
+            <if test="payAddress != null  and payAddress != ''">and pay_address =
+                #{payAddress}
+            </if>
+            <if test="payHash != null  and payHash != ''">and pay_hash =
+                #{payHash}
+            </if>
+            <if test="payTime != null ">and pay_time =
+                #{payTime}
+            </if>
+            <if test="payWay != null ">and pay_way =
+                #{payWay}
+            </if>
+            <if test="payStatus != null ">and pay_status =
+                #{payStatus}
+            </if>
+            <if test="leaseNo != null  and leaseNo != ''">and lease_no =
+                #{leaseNo}
+            </if>
+            <if test="leaseTime != null ">and lease_time =
+                #{leaseTime}
+            </if>
+            <if test="leaseStatus != null ">and lease_status =
+                #{leaseStatus}
+            </if>
+            <if test="expireTime != null ">and expire_time =
+                #{expireTime}
+            </if>
+            <if test="frozenTxId != null  and frozenTxId != ''">and frozen_tx_id =
+                #{frozenTxId}
+            </if>
+            <if test="unfreezeTxId != null  and unfreezeTxId != ''">and unfreeze_tx_id =
+                #{unfreezeTxId}
+            </if>
+        </where>
+    </select>
+    <select id="selectById" parameterType="Integer" resultMap="AppLeaseTradeResult">
+        <include refid="selectAppLeaseTradeVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectByOrderNo" parameterType="String" resultMap="AppLeaseTradeResult">
+        <include refid="selectAppLeaseTradeVo"/>
+        where order_no = #{orderNo}
+    </select>
+    <insert id="insert" parameterType="AppLeaseTrade" useGeneratedKeys="true" keyProperty="id">
+        insert into app_lease_trade
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="orderNo != null">order_no,</if>
+            <if test="channel != null">channel,</if>
+            <if test="receiveAddress != null">receive_address,</if>
+            <if test="leaseType != null">lease_type,</if>
+            <if test="resourceValue != null">resource_value,</if>
+            <if test="leaseDurationType != null">lease_duration_type,</if>
+            <if test="leaseDuration != null">lease_duration,</if>
+            <if test="priceInSun != null">price_in_sun,</if>
+            <if test="payTrx != null">pay_trx,</if>
+            <if test="payUsdt != null">pay_usdt,</if>
+            <if test="payAddress != null">pay_address,</if>
+            <if test="payHash != null">pay_hash,</if>
+            <if test="payTime != null">pay_time,</if>
+            <if test="payWay != null">pay_way,</if>
+            <if test="payStatus != null">pay_status,</if>
+            <if test="leaseNo != null">lease_no,</if>
+            <if test="leaseTime != null">lease_time,</if>
+            <if test="leaseStatus != null">lease_status,</if>
+            <if test="expireTime != null">expire_time,</if>
+            <if test="frozenTxId != null">frozen_tx_id,</if>
+            <if test="unfreezeTxId != null">unfreeze_tx_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="orderNo != null">#{orderNo},</if>
+            <if test="channel != null">#{channel},</if>
+            <if test="receiveAddress != null">#{receiveAddress},</if>
+            <if test="leaseType != null">#{leaseType},</if>
+            <if test="resourceValue != null">#{resourceValue},</if>
+            <if test="leaseDurationType != null">#{leaseDurationType},</if>
+            <if test="leaseDuration != null">#{leaseDuration},</if>
+            <if test="priceInSun != null">#{priceInSun},</if>
+            <if test="payTrx != null">#{payTrx},</if>
+            <if test="payUsdt != null">#{payUsdt},</if>
+            <if test="payAddress != null">#{payAddress},</if>
+            <if test="payHash != null">#{payHash},</if>
+            <if test="payTime != null">#{payTime},</if>
+            <if test="payWay != null">#{payWay},</if>
+            <if test="payStatus != null">#{payStatus},</if>
+            <if test="leaseNo != null">#{leaseNo},</if>
+            <if test="leaseTime != null">#{leaseTime},</if>
+            <if test="leaseStatus != null">#{leaseStatus},</if>
+            <if test="expireTime != null">#{expireTime},</if>
+            <if test="frozenTxId != null">#{frozenTxId},</if>
+            <if test="unfreezeTxId != null">#{unfreezeTxId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="AppLeaseTrade">
+        update app_lease_trade
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="payAddress != null">pay_address = #{payAddress},</if>
+            <if test="payHash != null">pay_hash = #{payHash},</if>
+            <if test="payTime != null">pay_time = #{payTime},</if>
+            <if test="payWay != null">pay_way = #{payWay},</if>
+            <if test="payStatus != null">pay_status = #{payStatus},</if>
+            <if test="leaseNo != null">lease_no = #{leaseNo},</if>
+            <if test="leaseTime != null and leaseTime != ''">lease_time = #{leaseTime},</if>
+            <if test="leaseStatus != null">lease_status = #{leaseStatus},</if>
+            <if test="expireTime != null and expireTime != ''">expire_time = #{expireTime},</if>
+            <if test="frozenTxId != null">frozen_tx_id = #{frozenTxId},</if>
+            <if test="unfreezeTxId != null">unfreeze_tx_id = #{unfreezeTxId},</if>
+            <if test="message != null">message = #{message},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Integer">
+        delete
+        from app_lease_trade
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="String">
+        delete from app_lease_trade where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fox.energy.conf.mapper.AppConfMailMapper">
+
+    <resultMap type="AppConfMail" id="AppConfMailResult">
+        <result property="id" column="id"/>
+        <result property="host" column="host"/>
+        <result property="port" column="port"/>
+        <result property="from" column="from"/>
+        <result property="user" column="user"/>
+        <result property="pass" column="pass"/>
+        <result property="sslEnable" column="ssl_enable"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectAppConfMailVo">
+        select id,
+               host,
+               port,
+               `from`,
+               user,
+               pass,
+               ssl_enable,
+               update_time
+        from app_conf_mail
+    </sql>
+
+    <select id="selectList" parameterType="AppConfMail" resultMap="AppConfMailResult">
+        <include refid="selectAppConfMailVo"/>
+        <where>
+            <if test="host != null  and host != ''">and host =
+                #{host}
+            </if>
+            <if test="port != null ">and port =
+                #{port}
+            </if>
+            <if test="from != null  and from != ''">and `from` =
+                #{from}
+            </if>
+            <if test="user != null  and user != ''">and user =
+                #{user}
+            </if>
+            <if test="pass != null  and pass != ''">and pass =
+                #{pass}
+            </if>
+            <if test="sslEnable != null ">and ssl_enable =
+                #{sslEnable}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="Long" resultMap="AppConfMailResult">
+        <include refid="selectAppConfMailVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="AppConfMail" useGeneratedKeys="true" keyProperty="id">
+        insert into app_conf_mail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="host != null">host,</if>
+            <if test="port != null">port,</if>
+            <if test="from != null">`from`,</if>
+            <if test="user != null">user,</if>
+            <if test="pass != null">pass,</if>
+            <if test="sslEnable != null">ssl_enable,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="host != null">#{host},</if>
+            <if test="port != null">#{port},</if>
+            <if test="from != null">#{from},</if>
+            <if test="user != null">#{user},</if>
+            <if test="pass != null">#{pass},</if>
+            <if test="sslEnable != null">#{sslEnable},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="AppConfMail">
+        update app_conf_mail
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="host != null">host = #{host},</if>
+            <if test="port != null">port = #{port},</if>
+            <if test="from != null">`from` = #{from},</if>
+            <if test="user != null">user = #{user},</if>
+            <if test="pass != null">pass = #{pass},</if>
+            <if test="sslEnable != null">ssl_enable = #{sslEnable},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from app_conf_mail
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="String">
+        delete from app_conf_mail where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

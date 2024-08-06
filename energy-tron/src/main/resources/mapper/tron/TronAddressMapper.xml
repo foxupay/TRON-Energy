@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fox.energy.tron.mapper.TronAddressMapper">
+    <resultMap type="TronAddress" id="TronAddressResult">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="type" column="type"/>
+        <result property="address" column="address"/>
+        <result property="privateKey" column="private_key"/>
+        <result property="amtTrx" column="amt_trx"/>
+        <result property="amtUsdt" column="amt_usdt"/>
+        <result property="enable" column="enable"/>
+        <result property="enableTime" column="enable_time"/>
+        <result property="enableHash" column="enable_hash"/>
+        <result property="used" column="used"/>
+        <result property="usedTime" column="used_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectTronAddressVo">
+        select id,
+               user_id,
+               type,
+               address,
+               private_key,
+               amt_trx,
+               amt_usdt,
+               enable,
+               enable_time,
+               enable_hash,
+               used,
+               used_time,
+               create_time,
+               update_time
+        from tron_address
+    </sql>
+
+    <select id="selectList" parameterType="TronAddress" resultMap="TronAddressResult">
+        <include refid="selectTronAddressVo"/>
+        <where>
+            <if test="userId != null ">and user_id =
+                #{userId}
+            </if>
+            <if test="type != null ">and type =
+                #{type}
+            </if>
+            <if test="address != null  and address != ''">and address =
+                #{address}
+            </if>
+            <if test="privateKey != null  and privateKey != ''">and private_key =
+                #{privateKey}
+            </if>
+            <if test="enable != null ">and enable =
+                #{enable}
+            </if>
+            <if test="enableHash != null  and enableHash != ''">and enable_hash =
+                #{enableHash}
+            </if>
+            <if test="used != null ">and used =
+                #{used}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="Long" resultMap="TronAddressResult">
+        <include refid="selectTronAddressVo"/>
+        where id = #{id}
+    </select>
+    <select id="selectByUserId" parameterType="Long" resultMap="TronAddressResult">
+        <include refid="selectTronAddressVo"/>
+        where user_id = #{userId}
+    </select>
+    <select id="selectByAddress" parameterType="String" resultMap="TronAddressResult">
+        <include refid="selectTronAddressVo"/>
+        where address = #{address}
+    </select>
+    <select id="selectNoUsed" parameterType="String" resultMap="TronAddressResult">
+        <include refid="selectTronAddressVo"/>
+        where type = 1 and used = 1 ORDER BY update_time ASC limit 1
+    </select>
+
+    <insert id="insert" parameterType="TronAddress" useGeneratedKeys="true" keyProperty="id">
+        insert into tron_address
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="type != null">type,</if>
+            <if test="address != null">address,</if>
+            <if test="privateKey != null">private_key,</if>
+            <if test="enable != null">enable,</if>
+            <if test="enableTime != null">enable_time,</if>
+            <if test="enableHash != null">enable_hash,</if>
+            <if test="used != null">used,</if>
+            <if test="usedTime != null">used_time,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="type != null">#{type},</if>
+            <if test="address != null">#{address},</if>
+            <if test="privateKey != null">#{privateKey},</if>
+            <if test="enable != null">#{enable},</if>
+            <if test="enableTime != null">#{enableTime},</if>
+            <if test="enableHash != null">#{enableHash},</if>
+            <if test="used != null">#{used},</if>
+            <if test="usedTime != null">#{usedTime},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="TronAddress">
+        update tron_address
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="privateKey != null">private_key = #{privateKey},</if>
+            <if test="amtTrx != null">amt_trx = #{amtTrx},</if>
+            <if test="amtUsdt != null">amt_usdt = #{amtUsdt},</if>
+            <if test="enable != null">enable = #{enable},</if>
+            <if test="enableTime != null">enable_time = #{enableTime},</if>
+            <if test="enableHash != null">enable_hash = #{enableHash},</if>
+            <if test="used != null">used = #{used},</if>
+            <if test="usedTime != null">used_time = #{usedTime},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from tron_address
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="String">
+        delete from tron_address where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fox.energy.tron.mapper.TronTransactionMapper">
+
+    <resultMap type="TronTransaction" id="TronTransactionResult">
+        <result property="id" column="id"/>
+        <result property="fromAddress" column="from_address"/>
+        <result property="toAddress" column="to_address"/>
+        <result property="amount" column="amount"/>
+        <result property="type" column="type"/>
+        <result property="hash" column="hash"/>
+        <result property="status" column="status"/>
+        <result property="handle" column="handle"/>
+        <result property="message" column="message"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectTronTransactionVo">
+        select id,
+               from_address,
+               to_address,
+               amount,
+               type,
+               hash,
+               status,
+               handle,
+               message,
+               update_time
+        from tron_transaction
+    </sql>
+
+    <select id="selectList" parameterType="TronTransaction" resultMap="TronTransactionResult">
+        <include refid="selectTronTransactionVo"/>
+        <where>
+            <if test="fromAddress != null  and fromAddress != ''">and from_address =
+                #{fromAddress}
+            </if>
+            <if test="toAddress != null  and toAddress != ''">and to_address =
+                #{toAddress}
+            </if>
+            <if test="amount != null ">and amount =
+                #{amount}
+            </if>
+            <if test="type != null ">and type =
+                #{type}
+            </if>
+            <if test="hash != null  and hash != ''">and hash =
+                #{hash}
+            </if>
+            <if test="status != null ">and status =
+                #{status}
+            </if>
+            <if test="handle != null ">and handle =
+                #{handle}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="Long" resultMap="TronTransactionResult">
+        <include refid="selectTronTransactionVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectByHash" parameterType="String" resultMap="TronTransactionResult">
+        <include refid="selectTronTransactionVo"/>
+        where hash = #{hash}
+    </select>
+
+    <insert id="insert" parameterType="TronTransaction">
+        insert into tron_transaction
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="hash != null">hash,</if>
+            <if test="handle != null">handle,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="hash != null">#{hash},</if>
+            <if test="handle != null">#{handle},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="TronTransaction">
+        update tron_transaction
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fromAddress != null">from_address = #{fromAddress},</if>
+            <if test="toAddress != null">to_address = #{toAddress},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="hash != null">hash = #{hash},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="handle != null">handle = #{handle},</if>
+            <if test="message != null">message = #{message},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from tron_transaction
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="String">
+        delete from tron_transaction where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

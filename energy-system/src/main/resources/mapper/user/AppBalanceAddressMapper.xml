@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fox.energy.user.mapper.AppBalanceAddressMapper">
+
+    <resultMap type="AppBalanceAddress" id="AppBalanceAddressResult">
+        <result property="id" column="id"/>
+        <result property="address" column="address"/>
+        <result property="balance" column="balance"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectAppBalanceAddressVo">
+        select id, address, balance, create_time, update_time
+        from app_balance_address
+    </sql>
+
+    <select id="selectList" parameterType="AppBalanceAddress" resultMap="AppBalanceAddressResult">
+        <include refid="selectAppBalanceAddressVo"/>
+        <where>
+            <if test="address != null  and address != ''">and address =
+                #{address}
+            </if>
+            <if test="balance != null ">and balance =
+                #{balance}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="Long" resultMap="AppBalanceAddressResult">
+        <include refid="selectAppBalanceAddressVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectByAddress" parameterType="String" resultMap="AppBalanceAddressResult">
+        <include refid="selectAppBalanceAddressVo"/>
+        where address = #{address}
+    </select>
+
+    <insert id="insert" parameterType="AppBalanceAddress" useGeneratedKeys="true" keyProperty="id">
+        insert into app_balance_address
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="address != null">address,</if>
+            <if test="balance != null">balance,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="address != null">#{address},</if>
+            <if test="balance != null">#{balance},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="AppBalanceAddress">
+        update app_balance_address
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="address != null">address = #{address},</if>
+            <if test="balance != null">balance = #{balance},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from app_balance_address
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="String">
+        delete from app_balance_address where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="change" parameterType="AppBalance">
+        update app_balance_address
+        set balance=balance + #{amount}
+        where address = #{address}
+    </update>
+</mapper>

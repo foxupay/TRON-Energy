@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.fox.energy</groupId>
+        <artifactId>energy</artifactId>
+        <version>3.8.7</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>energy-sweep</artifactId>
+
+    <description>
+        TRON归集
+    </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.fox.energy</groupId>
+            <artifactId>energy-lease</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

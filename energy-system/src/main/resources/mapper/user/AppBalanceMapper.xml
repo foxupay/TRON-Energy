@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fox.energy.user.mapper.AppBalanceMapper">
+
+    <resultMap type="AppBalance" id="AppBalanceResult">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="balance" column="balance"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectAppBalanceVo">
+        select id, user_id, balance, create_time, update_time
+        from app_balance
+    </sql>
+
+    <select id="selectList" parameterType="AppBalance" resultMap="AppBalanceResult">
+        <include refid="selectAppBalanceVo"/>
+        <where>
+            <if test="userId != null ">and user_id =
+                #{userId}
+            </if>
+            <if test="balance != null ">and balance =
+                #{balance}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="Long" resultMap="AppBalanceResult">
+        <include refid="selectAppBalanceVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectByUserId" parameterType="Long" resultMap="AppBalanceResult">
+        <include refid="selectAppBalanceVo"/>
+        where user_id = #{userId}
+    </select>
+
+    <insert id="insert" parameterType="AppBalance" useGeneratedKeys="true" keyProperty="id">
+        insert into app_balance
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="balance != null">balance,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="balance != null">#{balance},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="AppBalance">
+        update app_balance
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="balance != null">balance = #{balance},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <update id="change" parameterType="AppBalance">
+        update app_balance
+        set balance=balance + #{amount}
+        where user_id = #{userId}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from app_balance
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="String">
+        delete from app_balance where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fox.energy.app.mapper.AppVersionMapper">
+
+    <resultMap type="AppVersion" id="AppVersionResult">
+            <result property="id"    column="id"    />
+            <result property="type"    column="type"    />
+            <result property="version"    column="version"    />
+            <result property="description"    column="description"    />
+            <result property="url"    column="url"    />
+    </resultMap>
+
+    <sql id="selectAppVersionVo">
+        select id, type, version, description, url from app_version
+    </sql>
+
+    <select id="selectList" parameterType="AppVersion" resultMap="AppVersionResult">
+        <include refid="selectAppVersionVo"/>
+        <where>
+                        <if test="type != null ">and type =
+                            #{type}
+                        </if>
+                        <if test="version != null  and version != ''">and version =
+                            #{version}
+                        </if>
+                        <if test="description != null  and description != ''">and description =
+                            #{description}
+                        </if>
+                        <if test="url != null  and url != ''">and url =
+                            #{url}
+                        </if>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="Integer" resultMap="AppVersionResult">
+            <include refid="selectAppVersionVo"/>
+            where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="AppVersion" useGeneratedKeys="true" keyProperty="id">
+        insert into app_version
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="type != null">type,</if>
+                    <if test="version != null">version,</if>
+                    <if test="description != null">description,</if>
+                    <if test="url != null">url,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="type != null">#{type},</if>
+                    <if test="version != null">#{version},</if>
+                    <if test="description != null">#{description},</if>
+                    <if test="url != null">#{url},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="AppVersion">
+        update app_version
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="type != null">type = #{type},</if>
+                    <if test="version != null">version = #{version},</if>
+                    <if test="description != null">description = #{description},</if>
+                    <if test="url != null">url = #{url},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Integer">
+        delete from app_version where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="String">
+        delete from app_version where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

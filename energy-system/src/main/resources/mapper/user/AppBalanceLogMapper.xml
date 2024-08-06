@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fox.energy.user.mapper.AppBalanceLogMapper">
+
+    <resultMap type="AppBalanceLog" id="AppBalanceLogResult">
+            <result property="id"    column="id"    />
+            <result property="userId"    column="user_id"    />
+            <result property="orderNo"    column="order_no"    />
+            <result property="beforeBalance"    column="before_balance"    />
+            <result property="amount"    column="amount"    />
+            <result property="afterBalance"    column="after_balance"    />
+            <result property="createAt"    column="create_at"    />
+    </resultMap>
+
+    <sql id="selectAppBalanceLogVo">
+        select id, user_id, order_no, before_balance, amount, after_balance, create_at from app_balance_log
+    </sql>
+
+    <select id="selectList" parameterType="AppBalanceLog" resultMap="AppBalanceLogResult">
+        <include refid="selectAppBalanceLogVo"/>
+        <where>
+                        <if test="userId != null ">and user_id =
+                            #{userId}
+                        </if>
+                        <if test="orderNo != null  and orderNo != ''">and order_no =
+                            #{orderNo}
+                        </if>
+                        <if test="beforeBalance != null ">and before_balance =
+                            #{beforeBalance}
+                        </if>
+                        <if test="amount != null ">and amount =
+                            #{amount}
+                        </if>
+                        <if test="afterBalance != null  and afterBalance != ''">and after_balance =
+                            #{afterBalance}
+                        </if>
+                        <if test="createAt != null ">and create_at =
+                            #{createAt}
+                        </if>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="Long" resultMap="AppBalanceLogResult">
+        <include refid="selectAppBalanceLogVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="AppBalanceLog" useGeneratedKeys="true" keyProperty="id">
+        insert into app_balance_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="orderNo != null">order_no,</if>
+            <if test="beforeBalance != null">before_balance,</if>
+            <if test="amount != null">amount,</if>
+            <if test="afterBalance != null">after_balance,</if>
+            <if test="createAt != null">create_at,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="orderNo != null">#{orderNo},</if>
+            <if test="beforeBalance != null">#{beforeBalance},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="afterBalance != null">#{afterBalance},</if>
+            <if test="createAt != null">#{createAt},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="AppBalanceLog">
+        update app_balance_log
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="userId != null">user_id = #{userId},</if>
+                    <if test="orderNo != null">order_no = #{orderNo},</if>
+                    <if test="beforeBalance != null">before_balance = #{beforeBalance},</if>
+                    <if test="amount != null">amount = #{amount},</if>
+                    <if test="afterBalance != null">after_balance = #{afterBalance},</if>
+                    <if test="createAt != null">create_at = #{createAt},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        delete from app_balance_log where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="String">
+        delete from app_balance_log where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

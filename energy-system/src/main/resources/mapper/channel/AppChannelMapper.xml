@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fox.energy.conf.mapper.AppChannelMapper">
+
+    <resultMap type="AppChannel" id="AppChannelResult">
+        <result property="id" column="id"/>
+        <result property="channelName" column="channel_name"/>
+        <result property="channelCode" column="channel_code"/>
+        <result property="appId" column="app_id"/>
+        <result property="appKey" column="app_key"/>
+        <result property="appPem" column="app_pem"/>
+        <result property="state" column="state"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectAppChannelVo">
+        select id,
+               channel_name,
+               channel_code,
+               app_id,
+               app_key,
+               app_pem,
+               state,
+               create_time,
+               update_time
+        from app_channel
+    </sql>
+
+    <select id="selectList" parameterType="AppChannel" resultMap="AppChannelResult">
+        <include refid="selectAppChannelVo"/>
+        <where>
+            <if test="channelName != null  and channelName != ''">and channel_name
+                like concat('%', #{channelName}, '%')
+            </if>
+            <if test="channelCode != null  and channelCode != ''">and channel_code =
+                #{channelCode}
+            </if>
+            <if test="appId != null  and appId != ''">and app_id =
+                #{appId}
+            </if>
+            <if test="appKey != null  and appKey != ''">and app_key =
+                #{appKey}
+            </if>
+            <if test="appPem != null  and appPem != ''">and app_pem =
+                #{appPem}
+            </if>
+            <if test="state != null ">and state =
+                #{state}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="Long" resultMap="AppChannelResult">
+        <include refid="selectAppChannelVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectEnable" resultMap="AppChannelResult">
+        <include refid="selectAppChannelVo"/>
+        where state = 1 limit 1
+    </select>
+
+    <select id="selectByCode" parameterType="String" resultMap="AppChannelResult">
+        <include refid="selectAppChannelVo"/>
+        where channel_code = #{code} limit 1
+    </select>
+
+    <insert id="insert" parameterType="AppChannel">
+        insert into app_channel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="channelName != null">channel_name,</if>
+            <if test="channelCode != null">channel_code,</if>
+            <if test="appId != null">app_id,</if>
+            <if test="appKey != null">app_key,</if>
+            <if test="appPem != null">app_pem,</if>
+            <if test="state != null">state,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="channelName != null">#{channelName},</if>
+            <if test="channelCode != null">#{channelCode},</if>
+            <if test="appId != null">#{appId},</if>
+            <if test="appKey != null">#{appKey},</if>
+            <if test="appPem != null">#{appPem},</if>
+            <if test="state != null">#{state},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="AppChannel">
+        update app_channel
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="channelName != null">channel_name = #{channelName},</if>
+            <if test="channelCode != null">channel_code = #{channelCode},</if>
+            <if test="appId != null">app_id = #{appId},</if>
+            <if test="appKey != null">app_key = #{appKey},</if>
+            <if test="appPem != null">app_pem = #{appPem},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        <where>
+            <if test="id != null ">
+                id = #{id}
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        delete
+        from app_channel
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="String">
+        delete from app_channel where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

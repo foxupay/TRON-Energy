@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fox.energy.app.mapper.AppApiKeyMapper">
+
+    <resultMap type="AppApiKey" id="AppApiKeyResult">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="name" column="name"/>
+        <result property="apiKey" column="api_key"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectAppApiKeyVo">
+        select id, user_id, name, api_key, update_time
+        from app_api_key
+    </sql>
+
+    <select id="selectList" parameterType="AppApiKey" resultMap="AppApiKeyResult">
+        <include refid="selectAppApiKeyVo"/>
+        <where>
+            <if test="userId != null ">and user_id =
+                #{userId}
+            </if>
+            <if test="name != null  and name != ''">and name
+                like concat('%', #{name}, '%')
+            </if>
+            <if test="apiKey != null  and apiKey != ''">and api_key =
+                #{apiKey}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" parameterType="Integer" resultMap="AppApiKeyResult">
+        <include refid="selectAppApiKeyVo"/>
+        where id = #{id}
+    </select>
+    <select id="selectByApiKey" parameterType="String" resultMap="AppApiKeyResult">
+        <include refid="selectAppApiKeyVo"/>
+        where api_key = #{apiKey}
+    </select>
+
+    <insert id="insert" parameterType="AppApiKey">
+        insert into app_api_key
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="name != null">name,</if>
+            <if test="apiKey != null">api_key,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="name != null">#{name},</if>
+            <if test="apiKey != null">#{apiKey},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="AppApiKey">
+        update app_api_key
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="apiKey != null">api_key = #{apiKey},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Integer">
+        delete
+        from app_api_key
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteByIds" parameterType="String">
+        delete from app_api_key where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
