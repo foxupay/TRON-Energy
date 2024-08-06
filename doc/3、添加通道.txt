@@ -7,4 +7,4 @@
 3. pay()        通道下单，需要实现具体的下单逻辑并返回 上游订单号 及 代理hash (如果同步返回的话)
 4. query()      通道订单查询，通过上游订单号查询订单状态，并按要求设置订单数据
 
-可提供通道对接服务，具体请联系 Email:admin@foxupay.com
+可提供通道对接服务，具体请联系 Email:admin@foxupay.com tele群：https://t.me/+Ry8pEQ1RIKczNjkx 官网：https://e.foxupay.com
