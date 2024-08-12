@@ -36,7 +36,7 @@ public class TronTransferUtil {
                 logger.info("激活地址 {} 已激活", address);
                 return new TronAddressActivateResponse(true);
             }
-            logger.info("激活地址 {} 失败", address);
+            logger.error("激活地址 {} 失败 ", address, e);
             return new TronAddressActivateResponse(false);
         } finally {
             apiWrapper.close();

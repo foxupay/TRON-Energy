@@ -2,11 +2,10 @@
   <div style="background: #f9fcff">
     <myheader ref="gaibian" class="gongyong"></myheader>
     <div style="height: 60px; width: 100%"></div>
-    <div class="b1">TRON 能量交易平台</div>
+    <div class="b1">{{ tab.name }}</div>
     <div class="b2">便宜、 便捷、 快速、 高效、 安全</div>
     <div class="b3">
-      TRX能量租赁是一个TRON
-      能量交易平台，我们提供TRON能量交易服务，让TRON能量交易更加便捷、安全、快速
+      {{ tab.name }} 是一个TRON 能量交易平台，我们提供TRON能量交易服务，让TRON能量交易更加便捷、安全、快速
     </div>
     <div class="b4" id="top">
       <div class="b5">
@@ -210,44 +209,37 @@
       </el-collapse>
     </div>
 
+
     <div class="f1">
-      <div style="width: 50px; height: 60px; text-align: center" @click="goqun">
-        <img
-          style="width: 40px; height: 40px"
-          src="../assets/img/qun.png"
-          alt=""
-        />
-        <div style="font-size: 12px; color: #1787ff; text-align: center">
+
+      <div v-if="tab.telegram!=='' && tab.telegram!==null && tab.telegram!==undefined "
+           style="width:80px ;height: 60px;text-align: center;" @click="goqun">
+        <img style="width:40px ;height: 40px;" src="../assets/img/qun.png" alt="">
+        <div style="font-size:12px ;color: #1787ff;text-align: center;">
           tel能量群
         </div>
       </div>
-      <div
-        style="width: 50px; height: 60px; text-align: center"
-        id="copyBtn"
-        data-clipboard-text="admin@foxupay.com"
-        data-clipboard-action="copy"
-        @click="copy"
-      >
-        <img
-          style="width: 40px; height: 40px"
-          src="../assets/img/kf.png"
-          alt=""
-        />
-        <div style="font-size: 12px; color: #1787ff; text-align: center">
+      <div v-if="tab.kefuMail!=='' && tab.kefuMail!==null && tab.kefuMail!==undefined "
+           style="width:80px ;height: 60px;text-align: center;" id="copyBtn"
+           data-clipboard-text="admin@foxupay.com" data-clipboard-action="copy" @click="copy">
+        <img style="width:40px ;height: 40px;" src="../assets/img/kf.png" alt="">
+        <div style="font-size:12px ;color: #1787ff;text-align: center;">
           客服
         </div>
       </div>
     </div>
+
   </div>
 </template>
 <script>
 import Clipboard from "clipboard";
 import myheader from "@/components/gongyong";
-import qs from "qs";
+
 export default {
   data() {
     return {
       activeNames: ["0"],
+      tab: {}
     };
   },
   components: {
@@ -296,9 +288,28 @@ export default {
         name: "energy",
       });
     },
+
+    gettext() {
+      this.$axios.get('/api/system/base/info')
+        .then(userData => {
+          if (userData.data.code === 200) {
+            this.tab = userData.data.data
+            document.title = userData.data.data.title
+            this.setcookie('nltext', userData.data.data.name)
+            document.querySelector('meta[name="keywords"]').setAttribute('content', userData.data.data.keywords)
+          } else {
+            this.$message.error(userData.data.msg);
+          }
+
+        }).catch(error => {
+        console.log(error)
+      })
+    },
   },
 
-  created: function () {},
+  created: function () {
+    this.gettext()
+  },
   filters: {
     zhuangtai: function (data) {
       if (data == "1") {
@@ -377,6 +388,7 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
 }
+
 .b5:hover {
   box-shadow: 0 2px 12px 0 #409eff;
 }

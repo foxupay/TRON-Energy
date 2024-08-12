@@ -1,26 +1,19 @@
 package com.fox.energy.lease.listener;
 
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.fox.energy.common.constant.QueueConstant;
-import com.fox.energy.common.core.domain.CommonResult;
 import com.fox.energy.common.utils.Threads;
-import com.fox.energy.framework.mq.RabbitConstants;
 import com.fox.energy.lease.channel.tool.ChannelPayEnums;
 import com.fox.energy.lease.channel.tool.ChannelPayResponse;
 import com.fox.energy.lease.channel.tool.ChannelQueryResponse;
 import com.fox.energy.lease.domain.AppLeaseTrade;
 import com.fox.energy.lease.server.LeaseTradeServer;
 import com.fox.energy.lease.service.IAppLeaseTradeService;
-import com.rabbitmq.client.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.annotation.Exchange;
-import org.springframework.amqp.rabbit.annotation.Queue;
-import org.springframework.amqp.rabbit.annotation.QueueBinding;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 
@@ -36,13 +29,7 @@ public class LeaseListener {
     private LeaseTradeServer leaseTradeServer;
 
 
-    @RabbitListener(
-            bindings = @QueueBinding(
-                    value = @Queue(name = RabbitConstants.QUEUE),
-                    exchange = @Exchange(value = RabbitConstants.EXCHANGE),
-                    key = QueueConstant.LEASE_DO
-            )
-    )
+    @JmsListener(destination = QueueConstant.LEASE_DO, containerFactory = "jmsListenerContainerQueue")
     public void task(String orderNo) {
         logger.info("执行租赁操作 {}", orderNo);
         AppLeaseTrade leaseTrade = appLeaseTradeService.selectByOrderNo(orderNo);

@@ -12,7 +12,7 @@
       <div style="display: flex; justify-content: flex-start; align-items: center">
         <i id="b3" class="el-icon-s-unfold" @click="dianjichu"></i>
         <i id="b4" class="el-icon-s-fold" @click="dianjijin"></i>
-        <div style="margin-left: 20px; font-weight: 550">能量租赁</div>
+        <div style="margin-left: 20px; font-weight: 550">{{ text }}</div>
       </div>
       <div class="b1">
         <el-menu
@@ -134,6 +134,7 @@
 <script>
 import JSEncrypt from "jsencrypt";
 import qs from "qs";
+
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
@@ -156,6 +157,7 @@ export default {
       }
     };
     return {
+      text: '',
       currentPage: 0,
       activeIndex2: "",
       windowWidth: document.body.clientWidth,
@@ -168,8 +170,8 @@ export default {
         checkPass: "",
       },
       rules: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }],
+        pass: [{validator: validatePass, trigger: "blur"}],
+        checkPass: [{validator: validatePass2, trigger: "blur"}],
       },
     };
   },
@@ -289,38 +291,40 @@ export default {
 
     handleSelect(key, keyPath) {
       // this.setcookie('daohangshu',key)
-      if (key == 1) {
+      if (key === '1') {
         this.$router.push({
           name: "index",
         });
       }
-      if (key == 2) {
+      if (key === '2') {
         this.$router.push({
           name: "orders",
         });
       }
-      if (key == 3) {
+      if (key === '3') {
         this.$router.push({
           name: "energy",
         });
       }
-      if (key == 4) {
+      if (key === '4') {
         this.$router.push({
           name: "record",
         });
       }
-      if (key == 5) {
+      if (key === '5') {
         this.$router.push({
           name: "my",
         });
       }
-      if (key == 6) {
+      if (key === '6') {
         this.$router.push({
           name: "appxz",
         });
       }
-      if (key == 7) {
-        window.open("https://www.foxupay.com/ENERGY_API.html");
+      if (key === '7') {
+        this.$router.push({
+          name: 'apiDoc'
+        })
       }
     },
     denglu() {
@@ -358,31 +362,24 @@ export default {
   },
 
   created: function () {
-    if (
-      this.getCookie("nlaccount") != undefined &&
-      this.getCookie("nlaccount") != "" &&
-      this.getCookie("nlaccount") != null
-    ) {
-      this.account = this.getCookie("nlaccount");
+    this.text = this.getCookie('nltext')
+    if (this.getCookie('nlaccount') !== undefined && this.getCookie('nlaccount') !== '' && this.getCookie('nlaccount') !== null) {
+      this.account = this.getCookie('nlaccount')
     } else {
-      if (
-        this.getCookie("nltoken") != undefined &&
-        this.getCookie("nltoken") != "" &&
-        this.getCookie("nltoken") != null
-      ) {
-        this.getzhanghu();
+      if (this.getCookie('nltoken') !== undefined && this.getCookie('nltoken') !== '' && this.getCookie('nltoken') !== null) {
+        this.getzhanghu()
       }
     }
   },
   filters: {
     zhuangtai: function (data) {
-      if (data == "1") {
+      if (data === "1") {
         return "待支付";
       }
-      if (data == "2") {
+      if (data === "2") {
         return "支付完成";
       }
-      if (data == "3") {
+      if (data === "3") {
         return "取消支付";
       }
     },

@@ -2,7 +2,6 @@ package com.fox.energy.lease.listener;
 
 import cn.hutool.core.date.DateUtil;
 import com.fox.energy.common.constant.QueueConstant;
-import com.fox.energy.framework.mq.RabbitConstants;
 import com.fox.energy.lease.domain.AppLeaseTrade;
 import com.fox.energy.lease.server.LeaseTradeServer;
 import com.fox.energy.lease.server.TronPriceServer;
@@ -15,11 +14,8 @@ import com.fox.energy.tron.service.ITronTransactionService;
 import com.fox.energy.user.service.IAppBalanceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.annotation.Exchange;
-import org.springframework.amqp.rabbit.annotation.Queue;
-import org.springframework.amqp.rabbit.annotation.QueueBinding;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -50,13 +46,7 @@ public class TronListener {
     private TronAddressServer tronAddressServer;
 
 
-    @RabbitListener(
-            bindings = @QueueBinding(
-                    value = @Queue(name = RabbitConstants.QUEUE),
-                    exchange = @Exchange(value = RabbitConstants.EXCHANGE),
-                    key = QueueConstant.TRON_TRANSACTION_HANDLE_DO
-            )
-    )
+    @JmsListener(destination = QueueConstant.TRON_TRANSACTION_HANDLE_DO, containerFactory = "jmsListenerContainerQueue")
     public void task(String hash) {
         logger.info("TRON交易 处理: {}", hash);
         TronTransaction transaction = tronTransactionService.selectByHash(hash);

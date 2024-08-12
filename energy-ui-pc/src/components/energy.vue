@@ -64,7 +64,7 @@
               <span
                 v-if="resourceValue === 32000"
                 style="font-size: 16px; font-weight: 700; color: #1f87ff"
-                >3.2万</span
+              >3.2万</span
               >
             </div>
             <div @click="zhurulinghun(65000)" class="e15-1">
@@ -72,7 +72,7 @@
               <span
                 v-if="resourceValue === 65000"
                 style="font-size: 16px; font-weight: 700; color: #1f87ff"
-                >6.5万</span
+              >6.5万</span
               >
             </div>
             <div @click="zhurulinghun(100000)" class="e15-1">
@@ -80,7 +80,7 @@
               <span
                 v-if="resourceValue === 100000"
                 style="font-size: 16px; font-weight: 700; color: #1f87ff"
-                >10万</span
+              >10万</span
               >
             </div>
             <div @click="zhurulinghun(1000000)" class="e15-1">
@@ -88,7 +88,7 @@
               <span
                 v-if="resourceValue === 1000000"
                 style="font-size: 16px; font-weight: 700; color: #1f87ff"
-                >100万</span
+              >100万</span
               >
             </div>
             <div @click="zhurulinghun(10000000)" class="e15-1">
@@ -96,7 +96,7 @@
               <span
                 v-if="resourceValue === 10000000"
                 style="font-size: 16px; font-weight: 700; color: #1f87ff"
-                >1000万</span
+              >1000万</span
               >
             </div>
           </div>
@@ -195,7 +195,7 @@
               <div class="e18">
                 <span style="text-decoration: line-through">{{ yingzhifu }}</span>
                 <span style="font-size: 24px; font-weight: 700; color: #27c1a5"
-                  >{{ zhifuxinxi }}TRX</span
+                >{{ zhifuxinxi }}TRX</span
                 >
               </div>
             </div>
@@ -415,8 +415,6 @@
             </div>
           </div>
         </div>
-        <!-- <el-button @click="centerDialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button> -->
       </span>
     </el-dialog>
 
@@ -439,7 +437,6 @@
         </div>
         <!-- <div>支付倒计时</div> -->
         <!-- format="mm分ss秒" -->
-
         <el-statistic
           @finish="hilarity"
           format="mm分ss秒"
@@ -490,6 +487,7 @@ import Clipboard from "clipboard";
 import QRCode from "qrcodejs2";
 import myheader from "@/components/gongyong";
 import qs from "qs";
+
 export default {
   data() {
     return {
@@ -502,36 +500,36 @@ export default {
       resourceValue: 32000, //租用不过数量
       ci: 1,
       options: [
-        { value: "1小时", label: "1h" },
-        { value: "1天", label: "1d" },
-        { value: "3天", label: "3d" },
-        { value: "4天", label: "4d" },
-        { value: "5天", label: "5d" },
-        { value: "6天", label: "6d" },
-        { value: "7天", label: "7d" },
-        { value: "8天", label: "8d" },
-        { value: "9天", label: "9d" },
-        { value: "10天", label: "10d" },
-        { value: "11天", label: "11d" },
-        { value: "12天", label: "12d" },
-        { value: "13天", label: "13d" },
-        { value: "14天", label: "14d" },
-        { value: "15天", label: "15d" },
-        { value: "16天", label: "16d" },
-        { value: "17天", label: "17d" },
-        { value: "18天", label: "18d" },
-        { value: "19天", label: "19d" },
-        { value: "20天", label: "20d" },
-        { value: "21天", label: "21d" },
-        { value: "22天", label: "22d" },
-        { value: "23天", label: "23d" },
-        { value: "24天", label: "24d" },
-        { value: "25天", label: "25d" },
-        { value: "26天", label: "26d" },
-        { value: "27天", label: "27d" },
-        { value: "28天", label: "28d" },
-        { value: "29天", label: "29d" },
-        { value: "30天", label: "30d" },
+        {value: "1小时", label: "1h"},
+        {value: "1天", label: "1d"},
+        {value: "3天", label: "3d"},
+        {value: "4天", label: "4d"},
+        {value: "5天", label: "5d"},
+        {value: "6天", label: "6d"},
+        {value: "7天", label: "7d"},
+        {value: "8天", label: "8d"},
+        {value: "9天", label: "9d"},
+        {value: "10天", label: "10d"},
+        {value: "11天", label: "11d"},
+        {value: "12天", label: "12d"},
+        {value: "13天", label: "13d"},
+        {value: "14天", label: "14d"},
+        {value: "15天", label: "15d"},
+        {value: "16天", label: "16d"},
+        {value: "17天", label: "17d"},
+        {value: "18天", label: "18d"},
+        {value: "19天", label: "19d"},
+        {value: "20天", label: "20d"},
+        {value: "21天", label: "21d"},
+        {value: "22天", label: "22d"},
+        {value: "23天", label: "23d"},
+        {value: "24天", label: "24d"},
+        {value: "25天", label: "25d"},
+        {value: "26天", label: "26d"},
+        {value: "27天", label: "27d"},
+        {value: "28天", label: "28d"},
+        {value: "29天", label: "29d"},
+        {value: "30天", label: "30d"},
       ],
       leaseDuration: "1h", //租用时长
       leaseDurationzs: "1小时",
@@ -795,7 +793,7 @@ export default {
       }
       if (!window.tronLink.ready) {
         try {
-          await tron.request({ method: "eth_requestAccounts" });
+          await tron.request({method: "eth_requestAccounts"});
         } catch (e) {
           // console.info("rese:", e)
           if (e.code === -32000) {
@@ -983,49 +981,35 @@ export default {
 
     //计算订单金额
     getqian(time) {
-      if (time == "1h") {
+      if (time === "1h") {
         this.zhifuxinxi =
           Math.ceil(((this.tab.h1 * Number(this.resourceValue)) / 1000000) * 100) / 100;
-        this.yingzhifu =
-          Math.ceil((Number(this.resourceValue) / 32000) * 13.44 * 1 * 100) / 100;
+        this.yingzhifu = Math.ceil((Number(this.resourceValue) / 32000) * 13.44 * 1 * 100) / 100;
         this.danjia = this.tab.h1;
-      } else if (time == "1d") {
-        this.zhifuxinxi =
-          Math.ceil(((this.tab.h24 * Number(this.resourceValue)) / 1000000) * 100) / 100;
-        this.yingzhifu =
-          Math.ceil((Number(this.resourceValue) / 32000) * 13.44 * 1 * 100) / 100;
+      } else if (time === "1d") {
+        this.zhifuxinxi = Math.ceil(((this.tab.h24 * Number(this.resourceValue)) / 1000000) * 100) / 100;
+        this.yingzhifu = Math.ceil((Number(this.resourceValue) / 32000) * 13.44 * 1 * 100) / 100;
         this.danjia = this.tab.h24;
-      } else if (time == "3d") {
-        this.zhifuxinxi =
-          Math.ceil(((this.tab.h72 * Number(this.resourceValue) * 3) / 1000000) * 100) /
-          100;
+      } else if (time === "3d") {
+        this.zhifuxinxi = Math.ceil(((this.tab.h72 * Number(this.resourceValue) * 3) / 1000000) * 100) / 100;
         this.yingzhifu =
           Math.ceil((Number(this.resourceValue) / 32000) * 13.44 * 3 * 100) / 100;
         this.danjia = this.tab.h72;
       } else {
         var num = Number(time.substring(0, time.length - 1));
-        this.zhifuxinxi =
-          Math.ceil(
-            ((this.tab.other * Number(this.resourceValue) * num) / 1000000) * 100
-          ) / 100;
-        this.yingzhifu =
-          Math.ceil((Number(this.resourceValue) / 32000) * 13.44 * num * 100) / 100;
+        this.zhifuxinxi = Math.ceil(((this.tab.other * Number(this.resourceValue) * num) / 1000000) * 100) / 100;
+        this.yingzhifu = Math.ceil((Number(this.resourceValue) / 32000) * 13.44 * num * 100) / 100;
         this.danjia = this.tab.other;
       }
-
-      this.jieshengjine =
-        Math.ceil((Number(this.yingzhifu) - Number(this.zhifuxinxi)) * 100) / 100;
-      this.zhekoujine =
-        (Math.floor((Number(this.jieshengjine) / Number(this.yingzhifu)) * 100) / 100) *
-          100 +
-        "%";
+      this.jieshengjine = Math.ceil((Number(this.yingzhifu) - Number(this.zhifuxinxi)) * 100) / 100;
+      this.zhekoujine = (Math.floor((Number(this.jieshengjine) / Number(this.yingzhifu)) * 100) / 100) * 100 + "%";
     },
 
     //日期多加一天的方法
     // date为相加前的时间， days 为 需要相加的天数
     addDate(days) {
       var curTime = new Date();
-      if (days == "1h") {
+      if (days === "1h") {
         var addHour = curTime.setHours(curTime.getHours() + 1);
       } else {
         var t = Number(days.slice(0, 1));
@@ -1051,7 +1035,7 @@ export default {
     },
     // 给时间补零
     fillZero(str) {
-      var realNum;
+      let realNum;
       if (str < 10) {
         realNum = "0" + str;
       } else {
@@ -1063,7 +1047,7 @@ export default {
     //下拉选中
     bianhua(val) {
       this.leaseDurationzs = val;
-      if (val == "1小时") {
+      if (val === "1小时") {
         this.leaseDuration = "1h";
       } else {
         this.leaseDuration = val.slice(0, 1) + "d";
@@ -1077,10 +1061,11 @@ export default {
       this.leaseDurationzs = data;
       this.leaseDuration = num;
       this.yujishijian = this.addDate(num);
-      this.getqian(num);
+      this.getqian(this.leaseDuration);
     },
     getinput(val) {
       this.ci = Math.floor(val / 32000);
+      this.getqian(this.leaseDuration);
     },
     zhurulinghun(num) {
       this.ci = Math.floor(Number(num) / 32000);
@@ -1111,7 +1096,6 @@ export default {
     },
 
     getpeizhi() {
-      
       this.$axios({
         method: "GET",
         url: "/api/app/lease/config",
@@ -1119,18 +1103,16 @@ export default {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-      })
-        .then((userData) => {
-          if (userData.data.code == "200") {
-            this.tab = userData.data.data;
-            this.getqian(this.leaseDuration);
-          } else {
-            this.$message.error(userData.data.msg);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      }).then((userData) => {
+        if (userData.data.code === 200) {
+          this.tab = userData.data.data;
+          this.getqian(this.leaseDuration);
+        } else {
+          this.$message.error(userData.data.msg);
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
     },
   },
   mounted() {
@@ -1306,6 +1288,7 @@ export default {
   text-align: center;
   border-left: 1px solid #1f87ff;
 }
+
 .e13-1 {
   height: 32px;
   flex: 1;

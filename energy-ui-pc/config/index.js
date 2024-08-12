@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: 'https://www.fakaxia.com',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/api'

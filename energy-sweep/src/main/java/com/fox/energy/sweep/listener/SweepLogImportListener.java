@@ -4,7 +4,6 @@ import cn.hutool.core.date.DateUtil;
 import com.fox.energy.common.constant.QueueConstant;
 import com.fox.energy.common.utils.uuid.IdUtils;
 import com.fox.energy.framework.mq.JmsProducer;
-import com.fox.energy.framework.mq.RabbitConstants;
 import com.fox.energy.sweep.domain.TronSweep;
 import com.fox.energy.sweep.domain.TronSweepLog;
 import com.fox.energy.sweep.service.ITronSweepLogService;
@@ -13,11 +12,8 @@ import com.fox.energy.tron.domain.TronAddress;
 import com.fox.energy.tron.service.ITronAddressService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.annotation.Exchange;
-import org.springframework.amqp.rabbit.annotation.Queue;
-import org.springframework.amqp.rabbit.annotation.QueueBinding;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -44,13 +40,7 @@ public class SweepLogImportListener {
     @Autowired
     private JmsProducer jmsProducer;
 
-    @RabbitListener(
-            bindings = @QueueBinding(
-                    value = @Queue(name = RabbitConstants.QUEUE),
-                    exchange = @Exchange(value = RabbitConstants.EXCHANGE),
-                    key = QueueConstant.TRON_SWEEP_ADDRESS_IMPORT
-            )
-    )
+    @JmsListener(destination = QueueConstant.TRON_SWEEP_ADDRESS_IMPORT, containerFactory = "jmsListenerContainerQueue")
     public void task(Long id) {
         TronSweep tronSweep = tronSweepService.selectById(id);
         if (tronSweep == null) {

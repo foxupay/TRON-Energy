@@ -5,7 +5,6 @@ import com.fox.energy.common.core.domain.CommonResult;
 import com.fox.energy.common.core.domain.tron.TronAccountResponse;
 import com.fox.energy.common.core.domain.tron.TronBalance;
 import com.fox.energy.common.utils.Threads;
-import com.fox.energy.framework.mq.RabbitConstants;
 import com.fox.energy.lease.channel.tool.ChannelContext;
 import com.fox.energy.lease.channel.tool.ChannelPayEnums;
 import com.fox.energy.lease.channel.tool.ChannelPayResponse;
@@ -24,11 +23,8 @@ import com.fox.energy.tron.util.TronSupport;
 import com.fox.energy.tron.util.TronTransferUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.annotation.Exchange;
-import org.springframework.amqp.rabbit.annotation.Queue;
-import org.springframework.amqp.rabbit.annotation.QueueBinding;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -57,13 +53,7 @@ public class SweepHandleListener {
     private ChannelContext channelContext;
 
 
-    @RabbitListener(
-            bindings = @QueueBinding(
-                    value = @Queue(name = RabbitConstants.QUEUE),
-                    exchange = @Exchange(value = RabbitConstants.EXCHANGE),
-                    key = QueueConstant.TRON_SWEEP_HANDLE
-            )
-    )
+    @JmsListener(destination = QueueConstant.TRON_SWEEP_HANDLE, containerFactory = "jmsListenerContainerQueue")
     public void task(String sweepId) {
         logger.info("归集操作 {}", sweepId);
         TronSweepLog sweepLog = tronSweepLogService.selectBySweepId(sweepId);

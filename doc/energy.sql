@@ -32,7 +32,7 @@ CREATE TABLE `app_account`  (
   `create_time` datetime NULL DEFAULT NULL,
   `update_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '客户端账户体系' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '客户端账户体系' ROW_FORMAT = DYNAMIC;
 
 
 
@@ -47,7 +47,7 @@ CREATE TABLE `app_api_key`  (
   `api_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '秘钥',
   `update_time` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '接口秘钥' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '接口秘钥' ROW_FORMAT = Dynamic;
 
 
 
@@ -63,7 +63,7 @@ CREATE TABLE `app_balance`  (
   `update_time` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户余额' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户余额' ROW_FORMAT = DYNAMIC;
 
 
 -- ----------------------------
@@ -78,7 +78,7 @@ CREATE TABLE `app_balance_address`  (
   `update_time` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `address`(`address`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '地址余额' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '地址余额' ROW_FORMAT = DYNAMIC;
 
 
 -- ----------------------------
@@ -96,7 +96,7 @@ CREATE TABLE `app_balance_log`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   INDEX `order_no`(`order_no`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 66 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户余额记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户余额记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for app_channel
@@ -114,8 +114,9 @@ CREATE TABLE `app_channel`  (
   `update_time` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `channel_code`(`channel_code`, `state`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '能量通道' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '能量通道' ROW_FORMAT = DYNAMIC;
 
+INSERT INTO `app_channel` (`channel_name`, `channel_code`, `app_id`, `app_key`, `app_pem`, `state`, `create_time`, `update_time`) VALUES ('FOXUPAY', 'fox_energy', '账号', NULL, '密码', 1, '2024-07-17 11:29:47', '2024-07-27 11:38:19');
 
 
 -- ----------------------------
@@ -132,7 +133,7 @@ CREATE TABLE `app_conf_mail`  (
   `ssl_enable` int(1) NULL DEFAULT NULL COMMENT '使用SSL安全连接 1使用 2不使用',
   `update_time` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '邮件配置' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '邮件配置' ROW_FORMAT = Dynamic;
 
 
 
@@ -169,7 +170,7 @@ CREATE TABLE `app_lease_trade`  (
   `update_time` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`, `order_no`, `receive_address`, `lease_type`, `pay_status`, `lease_status`, `pay_address`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 264 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '能量租赁订单' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '能量租赁订单' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for app_proxy
@@ -182,7 +183,7 @@ CREATE TABLE `app_proxy`  (
   `update_time` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代理利率' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代理利率' ROW_FORMAT = DYNAMIC;
 
 
 -- ----------------------------
@@ -197,7 +198,7 @@ CREATE TABLE `app_version`  (
   `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '下载地址',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `type`(`type`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'APP版本' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'APP版本' ROW_FORMAT = DYNAMIC;
 
 
 -- ----------------------------
@@ -275,7 +276,7 @@ CREATE TABLE `sys_config`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`config_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 108 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '参数配置表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 110 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '参数配置表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_config
@@ -293,6 +294,11 @@ INSERT INTO `sys_config` VALUES (104, '费用比例', 'app.price.rate', '', 'Y',
 INSERT INTO `sys_config` VALUES (105, 'Tron交易监控ApiKey', 'app.monitor.key', '', 'Y', '', NULL, '', NULL, 'Tron交易监控ApiKey，自行前往 https://monitor.foxupay.com 注册获取');
 INSERT INTO `sys_config` VALUES (106, 'TronScan ApiKey', 'app.tronscan.key', '', 'Y', '', NULL, '', NULL, 'TronScan ApiKey，多个秘钥以;分隔');
 INSERT INTO `sys_config` VALUES (107, '访问域名', 'sys.domain', '', 'Y', '', NULL, '', NULL, '访问域名');
+INSERT INTO `sys_config` VALUES (108, '系统名称', 'sys.name', 'TRON能量租用平台', 'Y', '', NULL, '', NULL, '系统名称');
+INSERT INTO `sys_config` VALUES (109, '网站标题', 'sys.title', '', 'Y', '', NULL, '', NULL, '网站标题');
+INSERT INTO `sys_config` VALUES (110, '网站关键字', 'sys.keywords', '', 'Y', '', NULL, '', NULL, '搜索优化');
+INSERT INTO `sys_config` VALUES (111, 'Telegram 群组地址', 'app.telegram.url', '', 'Y', '', NULL, '', NULL, 'Telegram 群组地址');
+INSERT INTO `sys_config` VALUES (112, '客服邮箱', 'app.kefu.mail', '', 'Y', '', NULL, '', NULL, '客服邮箱');
 
 -- ----------------------------
 -- Table structure for sys_dept
@@ -939,7 +945,7 @@ CREATE TABLE `tron_address`  (
   UNIQUE INDEX `adress_2`(`address`) USING BTREE,
   INDEX `adress`(`address`) USING BTREE,
   INDEX `amt_trx`(`amt_trx`, `amt_usdt`, `enable`, `used`, `user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 156 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'TRON地址' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'TRON地址' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for tron_sweep
@@ -1007,6 +1013,6 @@ CREATE TABLE `tron_transaction`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `hash`(`hash`) USING BTREE,
   INDEX `to_address`(`to_address`, `type`, `status`, `hash`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 45 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'TRON交易' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'TRON交易' ROW_FORMAT = DYNAMIC;
 
 SET FOREIGN_KEY_CHECKS = 1;
